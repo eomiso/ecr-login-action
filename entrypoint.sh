@@ -5,7 +5,7 @@ export AWS_ACCESS_KEY_ID=$INPUT_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY=$INPUT_SECRET_ACCESS_KEY
 export AWS_DEFAULT_REGION=$INPUT_REGION
 
-authTokenOutput=$(aws ecr get-authorization-token)
+authTokenOutput=$(aws ecr get-authorization-token --output json)
 authString=$(echo "$authTokenOutput" | jq -r '.authorizationData[].authorizationToken' | base64 -d)
 USERNAME=$(echo "$authString" | cut -d: -f1)
 PASSWORD=$(echo "$authString" | cut -d: -f2)
